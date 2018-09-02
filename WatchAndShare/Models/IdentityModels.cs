@@ -25,6 +25,18 @@ namespace WatchAndShare.Models
         {
         }
 
+        DbSet<Category> Category { get; set; }
+        public object Categories { get; internal set; }
+
+        DbSet<Anime> Anime { get; set; }
+        public object Animes { get; internal set; }
+
+        DbSet<Admin> Admin { get; set; }
+        public object Admins { get; internal set; }
+
+        DbSet<Cinema> Cinema { get; set; }
+        public object Cinemas { get; internal set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
