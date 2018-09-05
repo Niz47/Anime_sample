@@ -28,6 +28,8 @@ namespace WatchAndShare.DAL
 
             context.Category.Add(new Category { CatID=4, CatName="Ecchi"});
             base.Seed(context);
+
+
         }
     }
 }
