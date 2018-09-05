@@ -12,7 +12,5 @@ namespace WatchAndShare.Models
         
         public int CatID { get; set; }
         public string CatName { get; set; }
-
-        public virtual ICollection<Anime> Anime { get; set; }
     }
 }
