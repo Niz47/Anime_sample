@@ -48,6 +48,37 @@ namespace WatchAndShare.Controllers
             return View(userList);
         }
 
+        // GET: Admin
+        public ActionResult UserRoleList()
+        {
+            List<UserListVM> userList = new List<UserListVM>();
+
+            foreach (var user in UserManager.Users.ToList())
+            {
+                userList.Add(new UserListVM()
+                {
+                    Id = user.Id,
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    Roles = UserManager.GetRoles(user.Id).ToList()
+                });
+            }
+
+            //List<string> roles = UserManager.GetRoles("fsdlfjdslkfjsfsfs").ToList();
+            //List<UserListVM> userList = UserManager.Users.Include(u => u.Roles)
+            //            .Select(u => new UserListVM
+            //            {
+            //                Id = u.Id,
+            //                UserName = u.UserName,
+            //                Email = u.Email,
+            //                PhoneNumber = u.PhoneNumber,
+            //                Roles = u.Roles.ToList()
+            //            })
+            //            .ToList();
+            return View(userList);
+        }
+
         // GET: Admin/Details/5
         public ActionResult Details(string id)
         {
@@ -55,8 +86,10 @@ namespace WatchAndShare.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var user = UserManager.FindById(id);
-            if (user == null)
+            var tmpUser = UserManager.FindById(id);
+            UserListVM user = new UserListVM(tmpUser);
+            user.Roles = UserManager.GetRoles(user.Id).ToList();
+            if (tmpUser == null)
             {
                 return HttpNotFound();
             }
